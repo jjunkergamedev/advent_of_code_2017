@@ -51,13 +51,13 @@ func part2(data []byte) {
 }
 
 func main() {
-	dat, err := ioutil.ReadFile("day1_input.txt")
+	dat, err := ioutil.ReadFile("../data/day1_input.txt")
 	check(err)
 	fmt.Println(string(dat))
 
 	part1(dat)
 
-	dat, err = ioutil.ReadFile("day1_input_2.txt")
+	dat, err = ioutil.ReadFile("../data/day1_input_2.txt")
 	check(err)
 	fmt.Println(string(dat))
 
