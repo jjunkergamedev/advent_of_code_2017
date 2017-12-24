@@ -50,22 +50,63 @@ func part1(data string) {
 	fmt.Println("Part 1 sum: ", sum)
 }
 
-// func part2(data []byte) {
-// 	fmt.Println("Part 2: Calculating Checksum...")
+func part2(data string) {
+	fmt.Println("Part 2: Calculating Checksum...")
 
-// 	sum := 0
-// 	offset := len(data) / 2
-// 	fmt.Println("offset: ", offset)
-// 	for i, s := range data {
-// 		other := data[(i + offset) % len(data)]
-// 		if(s == other) {
-// 			// fmt.Println("i: ", i, " s: ", num(s), "other: ", num(other))
-// 			sum += num(s)
-// 		}
-// 	}
+	var sum int = 0
 
-// 	fmt.Println("Part 2 sum: ", sum)
-// }
+	var row []int
+
+	var lines []string = strings.Split(data, "\n")
+	for rowNum, s := range lines {
+		fmt.Println(s)
+		var nums []string = strings.Split(s, "\t")
+
+		// find the only 2 nums that divide evenly into each other.
+		// sum the result.
+
+		// brute force:
+		// for each num
+		// 		for each other num2
+		//			if num evenly divides num2, use it and continue
+
+		// alternate:
+		// for each row
+		//		sort the row
+		//		for n from highest to lowest
+		//			for m from n - 1 to lowest
+		//				if n evenly divides m, use it and continue
+
+		// another alternate:
+		// build a list of "unique" numbers? what if a number appears twice, is 2/2 = 1 the answer for that row?
+		// so, as we convert the numbers, add them to a list that we build
+		// and, check all the previously converted numbers to see if they divide either way
+		row = row[:0]
+		rowResult := 0
+		for i := 0; i < len(nums) && rowResult == 0; i++ {
+			curNum, _ := strconv.Atoi(nums[i])
+
+			for _, n := range row {
+				if n % curNum == 0 {
+					rowResult = n / curNum
+					fmt.Println(n, " divided by ", curNum)
+					break
+				} else if curNum % n == 0 {
+					rowResult = curNum / n
+					fmt.Println(curNum, " divided by ", n)
+					break
+				}
+			}
+
+			row = append(row, curNum)
+		}
+
+		fmt.Println("Row ", rowNum, " result=", rowResult)
+		sum += rowResult
+	}
+
+	fmt.Println("Part 2 sum: ", sum)
+}
 
 func main() {
 	dat, err := ioutil.ReadFile("../data/day2_input_1.txt")
@@ -74,9 +115,9 @@ func main() {
 
 	part1(string(dat))
 
-	// dat, err = ioutil.ReadFile("day1_input_2.txt")
-	// check(err)
-	// fmt.Println(string(dat))
+	dat, err = ioutil.ReadFile("../data/day2_input_2.txt")
+	check(err)
+	fmt.Println(string(dat))
 
-	// part2(dat)
+	part2(string(dat))
 }
