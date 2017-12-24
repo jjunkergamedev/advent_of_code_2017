@@ -62,25 +62,6 @@ func part2(data string) {
 		fmt.Println(s)
 		var nums []string = strings.Split(s, "\t")
 
-		// find the only 2 nums that divide evenly into each other.
-		// sum the result.
-
-		// brute force:
-		// for each num
-		// 		for each other num2
-		//			if num evenly divides num2, use it and continue
-
-		// alternate:
-		// for each row
-		//		sort the row
-		//		for n from highest to lowest
-		//			for m from n - 1 to lowest
-		//				if n evenly divides m, use it and continue
-
-		// another alternate:
-		// build a list of "unique" numbers? what if a number appears twice, is 2/2 = 1 the answer for that row?
-		// so, as we convert the numbers, add them to a list that we build
-		// and, check all the previously converted numbers to see if they divide either way
 		row = row[:0]
 		rowResult := 0
 		for i := 0; i < len(nums) && rowResult == 0; i++ {
